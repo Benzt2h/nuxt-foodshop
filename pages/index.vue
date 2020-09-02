@@ -10,7 +10,7 @@
             class="menu"
             cols="6"
           >
-            <Menu @addOrder="addOrder" :menu="menu" />
+            <Menu :menu="menu" @addOrder="addOrder" />
           </v-col>
         </v-row>
       </v-col>

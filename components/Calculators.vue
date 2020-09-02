@@ -2,13 +2,13 @@
   <v-col cols="3" class="calculators">
     ตะกร้า
     <MenuOrder
-      @onDelete="deleteOrder"
       v-for="order in menuOrder"
       :key="order.menu_id"
       :order="order"
+      @onDelete="deleteOrder"
     />
     <v-row class="text-center">
-      <ResultOrder :menuOrder="menuOrder" @onConfirmOrder="confirmOrder" />
+      <ResultOrder :menu-order="menuOrder" @onConfirmOrder="confirmOrder" />
     </v-row>
   </v-col>
 </template>

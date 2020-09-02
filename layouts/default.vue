@@ -68,7 +68,7 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: true,
+      fixed: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -77,8 +77,13 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          title: 'Menu Manage',
+          to: '/menus',
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Order',
+          to: '/orders',
         },
       ],
       miniVariant: false,

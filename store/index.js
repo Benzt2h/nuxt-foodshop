@@ -2,11 +2,15 @@ import axios from 'axios'
 export const state = () => ({
   menuList: [],
   menuOrder: [],
+  orders: [],
 })
 
 export const mutations = {
   menuListinit(state, menuList) {
     state.menuList = menuList
+  },
+  orderInit(state, orders) {
+    state.orders = orders
   },
   deleteOrder(state, id) {
     state.menuOrder = state.menuOrder.filter((order) => order.menu_id !== id)
@@ -25,9 +29,19 @@ export const mutations = {
   },
 }
 export const actions = {
-  menuListinit({ commit }) {
-    axios.get('http://192.168.1.108:3000/getallMenuTest').then((res) => {
+  async menuListinit({ commit }) {
+    await axios.get('http://192.168.1.108:3000/getallMenuTest').then((res) => {
       commit('menuListinit', res.data.message)
+    })
+  },
+  async menuAdd({ commit, dispatch }, data) {
+    await axios.post('http://192.168.1.108:3000/addMenuTest', data).then(() => {
+      dispatch('menuListinit')
+    })
+  },
+  async menuEdit({ commit, dispatch }, data) {
+    await axios.post('http://192.168.1.108:3000/editMenu', data).then(() => {
+      dispatch('menuListinit')
     })
   },
   deleteOrder({ commit }, id) {
@@ -36,7 +50,31 @@ export const actions = {
   addOrder({ commit }, data) {
     commit('addOrder', data)
   },
-  confirmOrder({ commit }, data) {
-    commit('confirmOrder')
+  async confirmOrder({ state, commit }, price) {
+    const conOrder = {
+      order: [
+        {
+          sumPrice: price,
+        },
+      ],
+      menuList: state.menuOrder,
+    }
+    await axios.post('http://192.168.1.108:3000/addOn', conOrder).then(() => {
+      commit('confirmOrder')
+    })
+  },
+  async orderInit({ commit }) {
+    await axios.get('http://192.168.1.108:3000/getAllOrders').then((res) => {
+      commit('orderInit', res.data.data)
+    })
+  },
+  async orderDelete({ commit, dispatch }, id) {
+    await axios
+      .post('http://192.168.1.108:3000/deleteOrder', {
+        order_id: id,
+      })
+      .then(() => {
+        dispatch('orderInit')
+      })
   },
 }
