@@ -59,7 +59,7 @@
     </v-row>
     <v-row>
       <v-col v-for="menu in menuList" :key="menu.menu_id" class="menu" cols="6">
-        <MenuManage :menu="menu" />
+        <MenuManage @onDelete="menuDelete" :menu="menu" />
       </v-col>
     </v-row>
   </v-container>
@@ -90,7 +90,7 @@ export default {
     this.menuListinit()
   },
   methods: {
-    ...mapActions(['menuListinit', 'addOrder', 'menuAdd']),
+    ...mapActions(['menuListinit', 'addOrder', 'menuAdd', 'menuDelete']),
     onAdd() {
       this.dialog = false
       this.newMenu.price = parseFloat(this.newMenu.price)

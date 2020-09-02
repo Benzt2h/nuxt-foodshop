@@ -12,7 +12,7 @@
       </nuxt-link>
 
       <v-spacer></v-spacer>
-      <v-btn text @click="onAdd(menu)">Add</v-btn>
+      <v-btn text @click="onDelete(menu.menu_id)">Delete</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -24,6 +24,11 @@ export default {
     menu: {
       type: Object,
       default: null,
+    },
+  },
+  methods: {
+    onDelete(menuId) {
+      this.$emit('onDelete', { menu_id: menuId })
     },
   },
 }
